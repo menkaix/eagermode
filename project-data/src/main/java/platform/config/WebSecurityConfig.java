@@ -79,8 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
-				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement() ;
-				//---- TODO DEBUG .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		httpSecurity.cors().configurationSource(request -> corsConfiguration);
 

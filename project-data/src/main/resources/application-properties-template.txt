@@ -7,3 +7,6 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 #jwt configuration
 jwt.secret=(very long string)
+platform.user=admin_user
+platform.pass=hashed_password
+platform.apikey=some_string
