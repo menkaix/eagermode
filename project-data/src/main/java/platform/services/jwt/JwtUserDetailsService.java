@@ -1,7 +1,7 @@
 package platform.services.jwt;
 
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
+	@Autowired
+	private Environment env;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("admin".equals(username)) {
+		if (env.getProperty("platform.user").equals(username)) {
 			
-			UserDetails ans = User.withUsername("admin")
-					.password("<secret>").roles("ADMIN", "USER")
+			UserDetails ans = User.withUsername(env.getProperty("platform.user"))
+					.password(env.getProperty("platform.pass")).roles("ADMIN", "USER")
 					.build();
 
 			return ans;

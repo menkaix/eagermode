@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Assertions;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("tests")
+@ActiveProfiles("test")
 public class AccessingMongodbDataRestApplicationTests {
 
 	@Test
