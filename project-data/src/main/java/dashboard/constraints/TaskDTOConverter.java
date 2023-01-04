@@ -37,6 +37,8 @@ public class TaskDTOConverter extends AbstractConverter<Task, TaskDTO>{
 		ans.setProjectID(entity.getProject().getId());
 		ans.setProjectName(entity.getProject().getProjectName());
 		
+		if(entity.getId()!=null) ans.setId(entity.getId());
+		
 		return ans;
 	}
 
@@ -54,9 +56,6 @@ public class TaskDTOConverter extends AbstractConverter<Task, TaskDTO>{
 			Project prj = projectRepo.findById(dto.getProjectID()).get() ;
 			t.setProject(prj);
 		}
-		
-		
-		
 		
 		try {
 			if(dto.getCreationDate()!= null)

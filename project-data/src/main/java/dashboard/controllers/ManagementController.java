@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dashboard.data.dto.ProjectMinimumDTO;
+import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.Actor;
 import dashboard.data.entities.People;
 import dashboard.data.entities.Project;
@@ -17,6 +18,7 @@ import dashboard.data.entities.ProjectGroup;
 import dashboard.services.ActorService;
 import dashboard.services.GroupService;
 import dashboard.services.ProjectService;
+import dashboard.services.TaskService;
 
 @RestController
 @RequestMapping(path = "/management")
@@ -66,7 +68,23 @@ public class ManagementController {
 		
 	}
 	
+	@Autowired
+	TaskService taskService ;
 	
+	@PostMapping(path="/add-task-in-project/{projectID}")
+	public ResponseEntity<TaskDTO> addTaskInProject(@PathVariable(name="projectID")Integer projectID, @RequestBody TaskDTO taskDTO){
+		
+		TaskDTO ans = taskService.addTaskToProject(projectID, taskDTO);
+		
+		if(ans != null) {
+			return new ResponseEntity<TaskDTO>(ans, HttpStatus.OK) ;
+		}
+		else {
+			return new ResponseEntity<TaskDTO>(HttpStatus.BAD_REQUEST) ;
+		}
+		
+		
+	}
 	
 	
 

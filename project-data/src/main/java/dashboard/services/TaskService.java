@@ -10,7 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dashboard.constraints.TaskDTOConverter;
+import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.Project;
+import dashboard.data.entities.ProjectGroup;
 import dashboard.data.entities.Task;
 import dashboard.data.repositories.ProjectRepository;
 import dashboard.data.repositories.TaskRepisitory;
@@ -135,6 +138,22 @@ public class TaskService {
 		
 		
 		return tsks ;
+	}
+
+	@Autowired
+	TaskDTOConverter taskConverter ;
+	
+	public TaskDTO addTaskToProject(Integer projectID, TaskDTO taskDTO) {
+		
+		Task tsk = taskConverter.convertFormDTO(taskDTO) ;
+		
+		if(tsk.getCreationDate()==null) tsk.setCreationDate(new Date());
+		
+		Project prj = projectService.getFromProjectID(projectID) ;
+		
+		tsk.setProject(prj);
+		
+		return taskConverter.convertToDTO(taskRepo.save(tsk));
 	}
 	
 	
