@@ -21,6 +21,8 @@ public class Task {
 	private Boolean isHot;
 	private Boolean isBillable ;
 
+	private String code ;
+	
 	private Date creationDate;
 	private Date dueDate;
 	private Date closeDate;
@@ -108,6 +110,14 @@ public class Task {
 
 	public void setIsBillable(Boolean isBillable) {
 		this.isBillable = isBillable;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

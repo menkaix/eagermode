@@ -28,6 +28,8 @@ public class TaskDTOConverter extends AbstractConverter<Task, TaskDTO>{
 		ans.setCloseComment(entity.getCloseComment());
 		ans.setIsHot(entity.getIsHot());
 		
+		ans.setCode(entity.getCode());
+		
 		ans.setCloseDate(entity.getCloseDate()!=null ? (new SimpleDateFormat("dd/MM/yyyy").format(entity.getCloseDate())):"");
 		ans.setCreationDate((new SimpleDateFormat("dd/MM/yyyy").format(entity.getCreationDate())));
 		ans.setDueDate(entity.getDueDate()!=null ? (new SimpleDateFormat("dd/MM/yyyy").format(entity.getDueDate())):"");
@@ -46,6 +48,7 @@ public class TaskDTOConverter extends AbstractConverter<Task, TaskDTO>{
 		t.setDescription(dto.getDescription());
 		t.setCloseComment(dto.getCloseComment());
 		t.setIsHot(dto.getIsHot());
+		t.setCode(dto.getCode());
 		
 		if(dto.getProjectID()!=null) {
 			Project prj = projectRepo.findById(dto.getProjectID()).get() ;

@@ -9,6 +9,8 @@ public class TaskDTO {
 	
 	private String title;
 	private String description;
+	
+	private String code ;
 
 	private Boolean isHot;
 
@@ -76,6 +78,12 @@ public class TaskDTO {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
