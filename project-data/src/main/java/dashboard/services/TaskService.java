@@ -79,14 +79,14 @@ public class TaskService {
 
 				List<Project> projectList = projectService.getFromCode(projectCode);
 				
-				List<Task> tasks = taskRepo.findByTitle(ticket);
+				List<Task> tasks = taskRepo.findByCode(ticket);
 
 				if (tasks.size() == 0 && projectList.size() == 1) {
 					Task task = new Task();
 					task.setCreationDate(new Date());
 					task.setProject(projectList.get(0));
-					task.setTitle(ticket);
-					task.setDescription(summary);
+					task.setCode(ticket);
+					task.setTitle(summary);
 					projectService.save(projectList.get(0));
 					taskRepo.save(task);
 					return taskRepo.save(task);

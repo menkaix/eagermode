@@ -13,5 +13,7 @@ public interface TaskRepisitory  extends PagingAndSortingRepository<Task, Intege
 	
 	public List<Task> findByTitle(String title);
 	
+	public List<Task> findByCode(String title);
+	
 
 }
