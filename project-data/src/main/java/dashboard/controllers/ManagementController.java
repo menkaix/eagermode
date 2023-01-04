@@ -28,6 +28,9 @@ public class ManagementController {
 	private ProjectService projectService ;
 	
 	@Autowired
+	private TaskService taskService ;
+
+	@Autowired
 	private GroupService groupService ;
 	
 	@PostMapping(path = "/create-project")
@@ -67,9 +70,6 @@ public class ManagementController {
 		
 		
 	}
-	
-	@Autowired
-	TaskService taskService ;
 	
 	@PostMapping(path="/add-task-in-project/{projectID}")
 	public ResponseEntity<TaskDTO> addTaskInProject(@PathVariable(name="projectID")Integer projectID, @RequestBody TaskDTO taskDTO){
