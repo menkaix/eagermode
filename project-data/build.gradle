@@ -27,6 +27,9 @@ dependencies {
 	
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.jsoup:jsoup:1.10.2'
+	implementation 'com.sun.activation:jakarta.activation:2.0.1'
+	implementation 'com.sun.mail:jakarta.mail:2.0.1'
 }
 
 test {
