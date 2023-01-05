@@ -7,14 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dashboard.constraints.FeatureDTOConverter;
+import dashboard.constraints.TaskDTOConverter;
 import dashboard.data.dto.FeatureDTO;
+import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.Actor;
 import dashboard.data.entities.Feature;
 import dashboard.data.entities.Project;
+import dashboard.data.entities.Task;
 import dashboard.data.entities.UserStory;
 import dashboard.data.repositories.ActorRepository;
 import dashboard.data.repositories.FeatureRepository;
 import dashboard.data.repositories.ProjectRepository;
+import dashboard.data.repositories.TaskRepisitory;
 import dashboard.data.repositories.UserStoryRepository;
 
 @Service
@@ -97,6 +101,48 @@ public class FeatureService {
 		child.setParent(parent);
 
 		return featureRepo.save(child);
+	}
+
+	@Autowired
+	TaskRepisitory taskRepisitory ;
+	
+	@Autowired
+	TaskDTOConverter taskConverter ;
+	
+	@Autowired
+	FeatureDTOConverter featureConverter ;
+	
+	
+	public TaskDTO addTaskToFeature(Integer featureID, TaskDTO taskDTO) {
+		
+		Feature feat = featureRepo.findById(featureID).get() ;
+		
+		if(feat != null) {
+			Task tsk = null ;
+			if(taskDTO.getId() != null) {
+				tsk = taskRepisitory.findById(taskDTO.getId()).get()  ;
+				
+				if(tsk == null) {
+					tsk = taskRepisitory.save( taskConverter.convertFormDTO(taskDTO));
+				}
+				
+			}
+			else {
+				tsk = taskRepisitory.save( taskConverter.convertFormDTO(taskDTO));
+			}
+			
+			if(tsk != null) {
+				feat.getTasks().add(tsk);
+				Feature savedFeat = featureRepo.save(feat) ; 
+				return taskConverter.convertToDTO(tsk) ;
+			}
+			
+			
+			
+		}
+		
+		
+		return null;
 	}
 	
 	

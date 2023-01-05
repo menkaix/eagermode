@@ -18,6 +18,7 @@ import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.People;
 import dashboard.data.entities.Project;
 import dashboard.data.entities.ProjectGroup;
+import dashboard.services.FeatureService;
 import dashboard.services.GroupService;
 import dashboard.services.ProjectService;
 import dashboard.services.TaskService;
@@ -76,6 +77,23 @@ public class ManagementController {
 			@RequestBody TaskDTO taskDTO) {
 
 		TaskDTO ans = taskService.addTaskToProject(projectID, taskDTO);
+
+		if (ans != null) {
+			return new ResponseEntity<TaskDTO>(ans, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<TaskDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@Autowired
+	FeatureService featureService ;
+	
+	@PostMapping(path = "/add-task-in-feature/{featureID}")
+	public ResponseEntity<TaskDTO> addTaskInFeature(@PathVariable(name = "featureID") Integer featureID,
+			@RequestBody TaskDTO taskDTO) {
+
+		TaskDTO ans = featureService.addTaskToFeature(featureID, taskDTO);
 
 		if (ans != null) {
 			return new ResponseEntity<TaskDTO>(ans, HttpStatus.OK);
