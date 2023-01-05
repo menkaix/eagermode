@@ -27,6 +27,9 @@ public class TaskService {
 	TaskRepisitory taskRepo;
 	
 	@Autowired
+	TaskDTOConverter taskConverter ;
+
+	@Autowired
 	ProjectService projectService ;
 
 //	@Autowired
@@ -140,12 +143,20 @@ public class TaskService {
 		return tsks ;
 	}
 
-	@Autowired
-	TaskDTOConverter taskConverter ;
-	
 	public TaskDTO addTaskToProject(Integer projectID, TaskDTO taskDTO) {
 		
-		Task tsk = taskConverter.convertFormDTO(taskDTO) ;
+		List<Task> tasks = taskRepo.findByCode(taskDTO.getCode());
+		
+		if(tasks.size()>0) {
+			//tsk = tasks.get(0) ;
+			return taskConverter.convertToDTO(tasks.get(0));
+			
+		}
+		
+		Task tsk = null;
+		
+		tsk = taskConverter.convertFormDTO(taskDTO) ;
+		
 		
 		if(tsk.getCreationDate()==null) tsk.setCreationDate(new Date());
 		
