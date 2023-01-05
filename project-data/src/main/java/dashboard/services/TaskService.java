@@ -25,22 +25,22 @@ public class TaskService {
 
 	@Autowired
 	TaskRepisitory taskRepo;
-	
-	@Autowired
-	TaskDTOConverter taskConverter ;
 
 	@Autowired
-	ProjectService projectService ;
+	TaskDTOConverter taskConverter;
+
+	@Autowired
+	ProjectService projectService;
 
 //	@Autowired
 //	ProjectRepository projectRepo;
 
 	public void saveTask(Task tsk) {
-		
-		if(tsk.getProject()!= null) {
+
+		if (tsk.getProject() != null) {
 			projectService.save(tsk.getProject());
 		}
-		
+
 		taskRepo.save(tsk);
 	}
 
@@ -81,7 +81,7 @@ public class TaskService {
 				String projectCode = stkin.nextToken();
 
 				List<Project> projectList = projectService.getFromCode(projectCode);
-				
+
 				List<Task> tasks = taskRepo.findByCode(ticket);
 
 				if (tasks.size() == 0 && projectList.size() == 1) {
@@ -133,40 +133,50 @@ public class TaskService {
 		return false;
 	}
 
-	
-	public List<Task> getAllByProject(Project prj){
-		ArrayList<Task> tsks = new ArrayList<Task>() ;
-		
-		tsks.addAll(taskRepo.findAllByProject(prj) );
-		
-		
-		return tsks ;
+	public List<Task> getAllByProject(Project prj) {
+		ArrayList<Task> tsks = new ArrayList<Task>();
+
+		tsks.addAll(taskRepo.findAllByProject(prj));
+
+		return tsks;
 	}
 
 	public TaskDTO addTaskToProject(Integer projectID, TaskDTO taskDTO) {
-		
+
 		List<Task> tasks = taskRepo.findByCode(taskDTO.getCode());
-		
-		if(tasks.size()>0) {
-			//tsk = tasks.get(0) ;
-			return taskConverter.convertToDTO(tasks.get(0));
-			
-		}
-		
+
 		Task tsk = null;
-		
-		tsk = taskConverter.convertFormDTO(taskDTO) ;
-		
-		
-		if(tsk.getCreationDate()==null) tsk.setCreationDate(new Date());
-		
-		Project prj = projectService.getFromProjectID(projectID) ;
-		
+
+		if (tasks.size() > 0) {
+			tsk = tasks.get(0);
+			if (tsk.getTitle() == null)
+				tsk.setTitle(taskDTO.getTitle());
+			if (tsk.getDescription() == null)
+				tsk.setDescription(taskDTO.getDescription());
+
+		} else {
+			tsk = taskConverter.convertFormDTO(taskDTO);
+		}
+
+		if (tsk.getCreationDate() == null)
+			tsk.setCreationDate(new Date());
+
+		Project prj = projectService.getFromProjectID(projectID);
+
 		tsk.setProject(prj);
-		
+
 		return taskConverter.convertToDTO(taskRepo.save(tsk));
 	}
-	
-	
-	
+
+	public List<TaskDTO> getAllByProjectID(Integer projectID) {
+
+		Project prj = projectService.getFromProjectID(projectID);
+
+		if (prj != null) {
+			return taskConverter.covertAllToDTO(getAllByProject(prj));
+		}
+
+		return null;
+	}
+
 }

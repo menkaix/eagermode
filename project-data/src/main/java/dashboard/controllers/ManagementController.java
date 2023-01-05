@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -104,6 +105,19 @@ public class ManagementController {
 
 		return new ResponseEntity<List<TaskDTO>>(ans, HttpStatus.OK);
 
+	}
+	
+	@GetMapping(path="/get-task-in-project/{projectID}")
+	public ResponseEntity<List<TaskDTO>> addBulkTaskInProject(@PathVariable(name = "projectID") Integer projectID){
+		
+		List<TaskDTO> ans = taskService.getAllByProjectID(projectID) ;
+		
+		if (ans != null) {
+			return new ResponseEntity<List<TaskDTO>>(ans, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<List<TaskDTO>>(HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 }
