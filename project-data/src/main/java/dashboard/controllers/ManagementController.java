@@ -34,6 +34,9 @@ public class ManagementController {
 	private TaskService taskService;
 
 	@Autowired
+	private FeatureService featureService ;
+
+	@Autowired
 	private GroupService groupService;
 
 	@PostMapping(path = "/create-project")
@@ -86,9 +89,6 @@ public class ManagementController {
 
 	}
 	
-	@Autowired
-	FeatureService featureService ;
-	
 	@PostMapping(path = "/add-task-in-feature/{featureID}")
 	public ResponseEntity<TaskDTO> addTaskInFeature(@PathVariable(name = "featureID") Integer featureID,
 			@RequestBody TaskDTO taskDTO) {
@@ -125,8 +125,8 @@ public class ManagementController {
 
 	}
 	
-	@GetMapping(path="/get-task-in-project/{projectID}")
-	public ResponseEntity<List<TaskDTO>> addBulkTaskInProject(@PathVariable(name = "projectID") Integer projectID){
+	@GetMapping(path="/get-tasks-in-project/{projectID}")
+	public ResponseEntity<List<TaskDTO>> getTasksInProject(@PathVariable(name = "projectID") Integer projectID){
 		
 		List<TaskDTO> ans = taskService.getAllByProjectID(projectID) ;
 		
