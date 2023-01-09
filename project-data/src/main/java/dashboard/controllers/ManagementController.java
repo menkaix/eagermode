@@ -148,5 +148,17 @@ public class ManagementController {
 			return new ResponseEntity<TaskDTO>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@PostMapping(path="/set-task-due")
+	private ResponseEntity<TaskDTO> setTaskDue(@RequestBody TaskDTO dto) {
+
+		TaskDTO ans = taskService.setTaskDue(dto) ;
+
+		if (ans != null) {
+			return new ResponseEntity<TaskDTO>(ans, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<TaskDTO>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
 }

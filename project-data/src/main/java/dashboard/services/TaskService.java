@@ -1,5 +1,7 @@
 package dashboard.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -180,30 +182,56 @@ public class TaskService {
 	}
 
 	public TaskDTO markTaskDone(TaskDTO dto) {
-		Task tsk = null ;
-		
-		if(dto.getCode()!= null) {
-			List<Task> tasks = taskRepo.findByCode(dto.getCode()) ;
-			if(tasks.size()>0) {
+		Task tsk = null;
+
+		if (dto.getCode() != null) {
+			List<Task> tasks = taskRepo.findByCode(dto.getCode());
+			if (tasks.size() > 0) {
 				tsk = tasks.get(0);
 			}
-		}
-		else if(dto.getId() != null) {
+		} else if (dto.getId() != null) {
 			tsk = taskRepo.findById(dto.getId()).get();
 		}
-		
-		if(tsk != null) {
-			
-			if(tsk.getCloseDate()==null)
+
+		if (tsk != null) {
+
+			if (tsk.getCloseDate() == null)
 				tsk.setCloseDate(new Date());
-			if(tsk.getCloseComment()==null)
+			if (tsk.getCloseComment() == null)
 				tsk.setCloseComment(dto.getCloseComment());
-			
+
 			return taskConverter.convertToDTO(taskRepo.save(tsk));
-			
-			
+
 		}
-		
+
+		return null;
+	}
+
+	public TaskDTO setTaskDue(TaskDTO dto) {
+		Task tsk = null;
+
+		if (dto.getCode() != null) {
+			List<Task> tasks = taskRepo.findByCode(dto.getCode());
+			if (tasks.size() > 0) {
+				tsk = tasks.get(0);
+			}
+		} else if (dto.getId() != null) {
+			tsk = taskRepo.findById(dto.getId()).get();
+		}
+
+		if (tsk != null) {
+
+			if (tsk.getDueDate() == null) {
+				
+				Task tempTask = taskConverter.convertFormDTO(dto);
+				tsk.setDueDate(tempTask.getDueDate());
+
+			}
+
+			return taskConverter.convertToDTO(taskRepo.save(tsk));
+
+		}
+
 		return null;
 	}
 
