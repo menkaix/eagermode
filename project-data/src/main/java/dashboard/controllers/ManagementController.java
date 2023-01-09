@@ -34,7 +34,7 @@ public class ManagementController {
 	private TaskService taskService;
 
 	@Autowired
-	private FeatureService featureService ;
+	private FeatureService featureService;
 
 	@Autowired
 	private GroupService groupService;
@@ -88,7 +88,7 @@ public class ManagementController {
 		}
 
 	}
-	
+
 	@PostMapping(path = "/add-task-in-feature/{featureID}")
 	public ResponseEntity<TaskDTO> addTaskInFeature(@PathVariable(name = "featureID") Integer featureID,
 			@RequestBody TaskDTO taskDTO) {
@@ -110,32 +110,43 @@ public class ManagementController {
 		ArrayList<TaskDTO> ans = new ArrayList<TaskDTO>();
 		for (TaskDTO dto : taskDTO) {
 			try {
-				TaskDTO t =taskService.addTaskToProject(projectID, dto);
-				if(t!=null) {
-					ans.add(t) ;
+				TaskDTO t = taskService.addTaskToProject(projectID, dto);
+				if (t != null) {
+					ans.add(t);
 				}
+			} catch (Exception e) {
+				System.out.println(dto.getCode() + " : " + e.getClass().getSimpleName());
 			}
-			catch(Exception e) {
-				System.out.println(dto.getCode()+" : "+ e.getClass().getSimpleName());
-			}
-			
+
 		}
 
 		return new ResponseEntity<List<TaskDTO>>(ans, HttpStatus.OK);
 
 	}
-	
-	@GetMapping(path="/get-tasks-in-project/{projectID}")
-	public ResponseEntity<List<TaskDTO>> getTasksInProject(@PathVariable(name = "projectID") Integer projectID){
-		
-		List<TaskDTO> ans = taskService.getAllByProjectID(projectID) ;
-		
+
+	@GetMapping(path = "/get-tasks-in-project/{projectID}")
+	public ResponseEntity<List<TaskDTO>> getTasksInProject(@PathVariable(name = "projectID") Integer projectID) {
+
+		List<TaskDTO> ans = taskService.getAllByProjectID(projectID);
+
 		if (ans != null) {
 			return new ResponseEntity<List<TaskDTO>>(ans, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<List<TaskDTO>>(HttpStatus.BAD_REQUEST);
 		}
-		
+
+	}
+
+	@PostMapping(path="/mark-task-done")
+	private ResponseEntity<TaskDTO> markTaskAsDone(@RequestBody TaskDTO dto) {
+
+		TaskDTO ans = taskService.markTaskDone(dto) ;
+
+		if (ans != null) {
+			return new ResponseEntity<TaskDTO>(ans, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<TaskDTO>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

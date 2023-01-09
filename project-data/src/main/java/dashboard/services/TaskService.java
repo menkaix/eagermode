@@ -179,4 +179,30 @@ public class TaskService {
 		return null;
 	}
 
+	public TaskDTO markTaskDone(TaskDTO dto) {
+		Task tsk = null ;
+		
+		if(dto.getCode()!= null) {
+			List<Task> tasks = taskRepo.findByCode(dto.getCode()) ;
+			if(tasks.size()>0) {
+				tsk = tasks.get(0);
+			}
+		}
+		else if(dto.getId() != null) {
+			tsk = taskRepo.findById(dto.getId()).get();
+		}
+		
+		if(tsk != null) {
+			
+			tsk.setCloseDate(new Date());
+			tsk.setCloseComment(dto.getCloseComment());
+			
+			return taskConverter.convertToDTO(taskRepo.save(tsk));
+			
+			
+		}
+		
+		return null;
+	}
+
 }
