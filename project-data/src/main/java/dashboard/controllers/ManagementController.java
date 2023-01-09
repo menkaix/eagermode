@@ -138,7 +138,7 @@ public class ManagementController {
 	}
 
 	@PostMapping(path="/mark-task-done")
-	private ResponseEntity<TaskDTO> markTaskAsDone(@RequestBody TaskDTO dto) {
+	public ResponseEntity<TaskDTO> markTaskAsDone(@RequestBody TaskDTO dto) {
 
 		TaskDTO ans = taskService.markTaskDone(dto) ;
 
@@ -150,7 +150,7 @@ public class ManagementController {
 	}
 	
 	@PostMapping(path="/set-task-due")
-	private ResponseEntity<TaskDTO> setTaskDue(@RequestBody TaskDTO dto) {
+	public ResponseEntity<TaskDTO> setTaskDue(@RequestBody TaskDTO dto) {
 
 		TaskDTO ans = taskService.setTaskDue(dto) ;
 

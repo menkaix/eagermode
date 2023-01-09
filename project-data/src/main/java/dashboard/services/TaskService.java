@@ -1,7 +1,5 @@
 package dashboard.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,9 +13,7 @@ import org.springframework.stereotype.Service;
 import dashboard.constraints.TaskDTOConverter;
 import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.Project;
-import dashboard.data.entities.ProjectGroup;
 import dashboard.data.entities.Task;
-import dashboard.data.repositories.ProjectRepository;
 import dashboard.data.repositories.TaskRepisitory;
 
 @Service
