@@ -194,8 +194,10 @@ public class TaskService {
 		
 		if(tsk != null) {
 			
-			tsk.setCloseDate(new Date());
-			tsk.setCloseComment(dto.getCloseComment());
+			if(tsk.getCloseDate()==null)
+				tsk.setCloseDate(new Date());
+			if(tsk.getCloseComment()==null)
+				tsk.setCloseComment(dto.getCloseComment());
 			
 			return taskConverter.convertToDTO(taskRepo.save(tsk));
 			
