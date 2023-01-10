@@ -1,5 +1,6 @@
 package dashboard.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -7,17 +8,20 @@ import java.util.StringTokenizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.metrics.buffering.StartupTimeline.TimelineEvent;
 import org.springframework.stereotype.Service;
 
 import dashboard.data.entities.People;
+import dashboard.data.entities.Project;
 import dashboard.data.entities.Task;
 import dashboard.data.entities.TimeLog;
+import dashboard.data.repositories.ProjectRepository;
 import dashboard.data.repositories.TimeLogRepository;
 
 @Service
 public class TimeLogService {
 
-	Logger logger = LoggerFactory.getLogger(TimeLogService.class);
+	private Logger logger = LoggerFactory.getLogger(TimeLogService.class);
 
 	@Autowired
 	private TimeLogRepository timeLogRepository;
@@ -28,6 +32,50 @@ public class TimeLogService {
 	@Autowired
 	private PeopleService peopleService;
 	
+	/*
+	 * Entrée du journal de travail: 1 heure, 30 minutes enregistré par Iony Mahefa
+	 * RASANDIFERA Changement par: Iony Mahefa RASANDIFERA Tempo Work Attribute
+	 * value for Billable: 0
+	 */
+	
+	@Autowired
+	ProjectRepository projectRepository ;
+
+	private void setTempoTime(TimeLog tempo, String timePassed) {
+		String[] parts = timePassed.split(" ");
+	
+		for (int i = 0; i < parts.length; i++) {
+	
+			if (parts[i].contains("heure")) {
+	
+				tempo.setSeconds(tempo.getSeconds() + (Float.parseFloat(parts[i - 1].trim()) * 3600f));
+			}
+			if (parts[i].contains("minute")) {
+	
+				tempo.setSeconds(tempo.getSeconds() + (Float.parseFloat(parts[i - 1].trim()) * 60f));
+			}
+	
+		}
+	}
+
+
+	/*
+	 * Entrée du journal de travail: 1 heure, 30 minutes enregistré par Iony Mahefa
+	 * RASANDIFERA Changement par: Iony Mahefa RASANDIFERA Tempo Work Attribute
+	 * value for Billable: 0
+	 */
+	
+	private boolean stringContainsNumber(String s) {
+	
+		for (char c : s.toCharArray()) {
+			if (Character.isDigit(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	public List<TimeLog> findAllByTask(Task task){
 		return timeLogRepository.findByTask(task) ;
 	}
@@ -38,33 +86,6 @@ public class TimeLogService {
 	 * RASANDIFERA Changement par: Iony Mahefa RASANDIFERA Tempo Work Attribute
 	 * value for Billable: 0
 	 */
-
-	private void setTempoTime(TimeLog tempo, String timePassed) {
-		String[] parts = timePassed.split(" ");
-
-		for (int i = 0; i < parts.length; i++) {
-
-			if (parts[i].contains("heure")) {
-
-				tempo.setSeconds(tempo.getSeconds() + (Float.parseFloat(parts[i - 1].trim()) * 3600f));
-			}
-			if (parts[i].contains("minute")) {
-
-				tempo.setSeconds(tempo.getSeconds() + (Float.parseFloat(parts[i - 1].trim()) * 60f));
-			}
-
-		}
-	}
-
-	private boolean stringContainsNumber(String s) {
-
-		for (char c : s.toCharArray()) {
-			if (Character.isDigit(c)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public boolean stripTempo(String sujet, String line) {
 
@@ -139,6 +160,26 @@ public class TimeLogService {
 		
 		return true;
 
+	}
+	
+	public  List<TimeLog> getTimeLogByProjectID(Integer projectID){
+		
+		List<TimeLog> ans = new ArrayList<>() ;
+		
+		Project p = projectRepository.findById(projectID).get() ; 
+		
+		if(p!=null) {
+			
+			List<Task> tasks = taskService.getAllByProject(p);
+			
+			for(Task tsk : tasks) {
+				ans.addAll(timeLogRepository.findByTask(tsk));
+			}
+			
+			
+		}
+		
+		return ans ;
 	}
 
 }

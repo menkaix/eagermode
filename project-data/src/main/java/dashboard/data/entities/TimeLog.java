@@ -23,12 +23,6 @@ public class TimeLog {
 	
 	private String mailSubject ;
 	
-	public People getOwner() {
-		return owner;
-	}
-	public void setOwner(People owner) {
-		this.owner = owner;
-	}
 	private Float seconds ;
 	
 	private Date creationDate ;
@@ -38,6 +32,12 @@ public class TimeLog {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public People getOwner() {
+		return owner;
+	}
+	public void setOwner(People owner) {
+		this.owner = owner;
 	}
 	public Task getTask() {
 		return task;
