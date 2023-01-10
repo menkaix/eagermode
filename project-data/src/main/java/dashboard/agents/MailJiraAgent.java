@@ -165,7 +165,7 @@ public class MailJiraAgent {
 	public void scheduleFixedDelayTask() {
 		// System.out.println("Fixed delay task - " + System.currentTimeMillis() /
 		// 1000);
-		readInboundEmails();
+		//readInboundEmails();
 	}
 
 }
