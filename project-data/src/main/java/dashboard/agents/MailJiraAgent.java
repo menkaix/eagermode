@@ -63,11 +63,18 @@ public class MailJiraAgent {
 
 		Elements elts = doc.select("tr");
 
+		
 //		System.out.println("------------ "+sujet + "--------------");
 
 		for (Element elt : elts) {
 
 			String lineContent = (elt.text());
+			
+			//update a tempo
+			if(lineContent.contains(" jour un journal de travail")) {
+				return false ;
+			}
+			
 
 			if (lineContent.contains("e du journal de travail:") && lineContent.contains("Changement par:")) {
 
@@ -165,7 +172,7 @@ public class MailJiraAgent {
 	public void scheduleFixedDelayTask() {
 		// System.out.println("Fixed delay task - " + System.currentTimeMillis() /
 		// 1000);
-		//readInboundEmails();
+		readInboundEmails();
 	}
 
 }
