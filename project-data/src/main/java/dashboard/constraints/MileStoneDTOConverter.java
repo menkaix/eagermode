@@ -8,14 +8,21 @@ public class MileStoneDTOConverter  extends AbstractConverter<MileStone, MileSto
 
 	@Override
 	public MileStoneDTO convertToDTO(MileStone entity) {
-		// TODO Auto-generated method stub
-		return null;
+		MileStoneDTO ans = new MileStoneDTO() ;
+		
+		fieldsFromEntity(entity, ans);
+		
+		return ans;
 	}
 
 	@Override
 	public MileStone convertFormDTO(MileStoneDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		MileStone stone = new MileStone() ;
+		
+		fieldsFromDTO(dto, stone) ;
+		
+		return stone;
 	}
 
 }

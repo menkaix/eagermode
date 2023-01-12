@@ -3,19 +3,19 @@ package dashboard.data.dto;
 import java.util.Date;
 
 public class MileStoneDTO {
-	
-private Integer id;
-	
-	private String mileStoneName ;
-	private String description ;
-	private Date estimStartDate ;
-	private Date estimEndDate ;
-	private Date startDate ;
-	private Date endDate ;
-	
-	private boolean isActive ;
-	
-	private String projectID ;
+
+	private Integer id;
+
+	private String mileStoneName;
+	private String description;
+	private Date estimStartDate;
+	private Date estimEndDate;
+	private Date startDate;
+	private Date endDate;
+
+	private boolean isActive;
+
+	private String projectID;
 
 	public Integer getId() {
 		return id;
