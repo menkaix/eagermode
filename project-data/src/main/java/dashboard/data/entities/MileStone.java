@@ -1,12 +1,14 @@
 package dashboard.data.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class MileStone {
@@ -24,6 +26,24 @@ public class MileStone {
 	
 	private boolean isActive ;
 	
+	@OneToMany
+	private List<Feature> features ;
+	@OneToMany
+	private List<Task> tasks ;
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public List<Task> getTasks() {
+		return tasks;
+	}
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
 	@ManyToOne
 	private Project project ;
 	
@@ -74,6 +94,12 @@ public class MileStone {
 	}
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	public List<Feature> getFeatures() {
+		return features;
+	}
+	public void setFeatures(List<Feature> features) {
+		this.features = features;
 	}
 
 	
