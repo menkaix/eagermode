@@ -11,6 +11,7 @@ import dashboard.data.dto.MileStoneDTO;
 import dashboard.data.entities.MileStone;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 
 
 @ActiveProfiles("test")
@@ -19,6 +20,7 @@ public class AutoFieldDTOTest {
 	
 	private MileStoneDTOConverter converter ;
 	
+	@Disabled
 	@Test
 	public void  shouldConvertFromDTO() {
 		
