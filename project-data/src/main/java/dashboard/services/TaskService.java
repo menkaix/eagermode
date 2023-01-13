@@ -68,7 +68,7 @@ public class TaskService {
 
 		StringTokenizer stk = new StringTokenizer(subject, "()");
 
-		if (stk.countTokens() == 3) {
+		if (stk.countTokens() >= 3) {
 			String trash = stk.nextToken();
 			String ticket = stk.nextToken();
 			String summary = stk.nextToken();
