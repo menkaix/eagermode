@@ -23,7 +23,7 @@ public class AutoFieldDTOTest {
 	@Disabled
 	@Test
 	public void  shouldConvertFromDTO() {
-		
+		/*
 		MileStoneDTOConverter converter = new MileStoneDTOConverter();
 		
 		MileStoneDTO dto = new MileStoneDTO() ;
@@ -33,7 +33,7 @@ public class AutoFieldDTOTest {
 		MileStone mileStone = converter.convertFormDTO(dto);
 		
 		Assertions.assertEquals(150, mileStone.getId());
-		
+		*/
 	}
 
 }
