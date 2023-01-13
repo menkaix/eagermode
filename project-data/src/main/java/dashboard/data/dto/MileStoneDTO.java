@@ -15,8 +15,12 @@ public class MileStoneDTO {
 
 	private boolean isActive;
 
-	private String projectID;
+	private Integer projectID;
 
+	
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,12 +85,12 @@ public class MileStoneDTO {
 		this.isActive = isActive;
 	}
 
-	public String getProjectID() {
+	public Integer getProjectID() {
 		return projectID;
 	}
 
-	public void setProjectID(String projectID) {
-		this.projectID = projectID;
+	public void setProjectID(Integer integer) {
+		this.projectID = integer;
 	}
 
 }

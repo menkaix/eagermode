@@ -34,79 +34,70 @@ public abstract class AbstractConverter<I, O> {
 		return list;
 	}
 
-	protected O fieldsFromEntity(I entity, O newDTO) {
+	protected void fieldsFromEntity(I entity, O newDTO) {
 
 		for (Method entityField : entity.getClass().getMethods()) {
 
+			if(!entityField.getName().startsWith("get")) {
+				continue ;
+			}
+			
 			String fieldNakedName = entityField.getName().substring(3);
 
 			Method dtoField;
 			try {
-				dtoField = newDTO.getClass().getMethod(entityField.getName());
+				dtoField = newDTO.getClass().getMethod("set" + fieldNakedName,entityField.getReturnType());
 
-				if (dtoField != null && entityField.getReturnType() == dtoField.getReturnType()) {
-
-					Method setter = newDTO.getClass().getMethod("set" + fieldNakedName);
-					//setter.set(newDTO, entityField.get(entity));
-					setter.invoke(newDTO, dtoField.invoke(entity));
-				}
-
-			 
-
+				dtoField.invoke(newDTO, entityField.invoke(entity));
+				
 			} catch (SecurityException e) {
-
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (IllegalArgumentException e) {
-
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (IllegalAccessException e) {
-
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			}
 			
 
 		}
 
-		return null;
 	}
 	
-	protected O fieldsFromDTO(O dto, I newEntity) {
+	protected void fieldsFromDTO(O dto, I newEntity) {
 
-		for (Method entityField : dto.getClass().getMethods()) {
-
-			String fieldNakedName = entityField.getName().substring(3);
-
-			System.out.println(fieldNakedName);
+		for (Method dtoField : dto.getClass().getMethods()) {
 			
-			Method dtoField;
+			if(!dtoField.getName().startsWith("get")) {
+				continue ;
+			}
+
+			String fieldNakedName = dtoField.getName().substring(3);
+
+			//System.out.println(fieldNakedName);
+			
+			Method newEntityField;
 			try {
-				dtoField = newEntity.getClass().getMethod(entityField.getName());
+				newEntityField = newEntity.getClass().getMethod("set" + fieldNakedName,dtoField.getReturnType());
 
-				if (dtoField != null && entityField.getReturnType() == dtoField.getReturnType()) {
-
-					Method setter = newEntity.getClass().getMethod("set" + fieldNakedName);
-					//setter.set(newEntity, entityField.get(dto));
-					setter.invoke(newEntity, entityField.invoke(dto)) ;
-				}
-
-			
+				newEntityField.invoke(newEntity, dtoField.invoke(dto)) ;
+				
 			} catch (SecurityException e) {
-				
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (IllegalArgumentException e) {
-				
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (IllegalAccessException e) {
-				
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (InvocationTargetException e) {
-				
+				System.err.println(e.getClass().getSimpleName() +" : " + e.getLocalizedMessage());
 			} catch (NoSuchMethodException e) {
 				
 			}
 
 		}
 
-		return null;
 	}
 }

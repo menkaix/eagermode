@@ -14,28 +14,25 @@ import dashboard.data.repositories.ProjectRepository;
 public class MileStoneService {
 
 	@Autowired
-	ProjectRepository projectRepository ;
-	
+	ProjectRepository projectRepository;
+
 	@Autowired
-	MileStoneRepository mileStoneRepository ;
-	
+	MileStoneRepository mileStoneRepository;
+
 	@Autowired
-	MileStoneDTOConverter mileStoneDTOConverter ;
-	
+	MileStoneDTOConverter mileStoneDTOConverter;
+
 	public MileStoneDTO createForProject(Integer projectID, MileStoneDTO dto) {
-		
-		Project prj = projectRepository.findById(projectID).get() ;
-		
-		if(prj != null) {
-			MileStone milestone = mileStoneDTOConverter.convertFormDTO(dto) ;
+
+		Project prj = projectRepository.findById(projectID).get();
+
+		if (prj != null) {
+			MileStone milestone = mileStoneDTOConverter.convertFormDTO(dto);
 			milestone.setProject(prj);
-			
-			
-			
-			return mileStoneDTOConverter.convertToDTO(mileStoneRepository.save(milestone)) ;
+
+			return mileStoneDTOConverter.convertToDTO(mileStoneRepository.save(milestone));
 		}
-		
-		
+
 		return null;
 	}
 

@@ -26,6 +26,9 @@ public class MileStone {
 	
 	private boolean isActive ;
 	
+	@ManyToOne
+	private Project project ;
+
 	@OneToMany
 	private List<Feature> features ;
 	@OneToMany
@@ -44,9 +47,6 @@ public class MileStone {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	@ManyToOne
-	private Project project ;
-	
 	public String getMileStoneName() {
 		return mileStoneName;
 	}

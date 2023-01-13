@@ -13,18 +13,19 @@ import dashboard.data.entities.MileStone;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 
-
+//@SpringBootTest
+//@AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class AutoFieldDTOTest {
 	
-	
+	@Autowired
 	private MileStoneDTOConverter converter ;
 	
-	@Disabled
+	//@Disabled
 	@Test
 	public void  shouldConvertFromDTO() {
-		/*
-		MileStoneDTOConverter converter = new MileStoneDTOConverter();
+		
+		converter = new MileStoneDTOConverter() ;
 		
 		MileStoneDTO dto = new MileStoneDTO() ;
 		
@@ -33,7 +34,22 @@ public class AutoFieldDTOTest {
 		MileStone mileStone = converter.convertFormDTO(dto);
 		
 		Assertions.assertEquals(150, mileStone.getId());
-		*/
+		
+	}
+	
+	@Test
+	public void  shouldConvertToDTO() {
+		
+		converter = new MileStoneDTOConverter() ;
+		
+		MileStone entity = new MileStone() ;
+		
+		entity.setId(150);
+		
+		MileStoneDTO mileStone = converter.convertToDTO(entity);
+		
+		Assertions.assertEquals(150, mileStone.getId());
+		
 	}
 
 }
