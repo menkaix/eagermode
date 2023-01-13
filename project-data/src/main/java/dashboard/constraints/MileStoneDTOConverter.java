@@ -1,9 +1,12 @@
 package dashboard.constraints;
 
+import org.springframework.stereotype.Component;
+
 import dashboard.data.dto.MileStoneDTO;
 import dashboard.data.entities.MileStone;
 import platform.constraints.AbstractConverter;
 
+@Component
 public class MileStoneDTOConverter  extends AbstractConverter<MileStone, MileStoneDTO>{
 
 	@Override
