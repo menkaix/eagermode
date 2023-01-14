@@ -1,5 +1,7 @@
 package dashboard.agents;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.jsoup.Jsoup;
@@ -103,8 +105,66 @@ public class MailJiraAgent {
 //		System.out.println("-----------------------------------------");
 		return false;
 	}
+	
+	public List<String>  markNotRead() {
+		// create session object
+		
+		List<String> ans = new ArrayList<>() ;
+		
+				Session session = this.getImapSession();
 
-	public void readInboundEmails() {
+				try {
+					// connect to message store
+					Store store = session.getStore("imap");
+
+					store.connect(env.getProperty("mail.host"), Integer.parseInt(env.getProperty("mail.port")),
+							env.getProperty("mail.username"), env.getProperty("mail.password"));
+					// open the inbox folder
+
+					Folder inbox = (Folder) store.getFolder("INBOX");
+					inbox.open(Folder.READ_WRITE);
+					// fetch messages
+					Message[] messages = inbox.getMessages();
+					// read messages
+					for (int i = 0; i < messages.length; i++) {
+						Message msg = messages[i];
+						Address[] fromAddress = msg.getFrom();
+						String from = fromAddress[0].toString();
+						String subject = msg.getSubject();
+						Address[] toList = msg.getRecipients(RecipientType.TO);
+						Address[] ccList = msg.getRecipients(RecipientType.CC);
+						String contentType = msg.getContentType();
+
+						try {
+							
+							msg.setFlag(Flags.Flag.SEEN, false);
+							
+							
+						} catch (Exception ex) {
+							
+							ans.add(ex.getClass().getSimpleName() +" --- "+ ex.getMessage() + " --- "+ subject ) ;
+							
+						}
+
+					}
+				} catch (AuthenticationFailedException e) {
+					logger.error("Exception (auth) in reading EMails : " + e.getMessage());
+				} catch (MessagingException e) {
+					logger.error("Exception (messaging) in reading EMails : " + e.getMessage());
+				} catch (Exception e) {
+					logger.error("Exception (" + e.getClass().getSimpleName() + ") in reading EMails : " + e.getMessage());
+				} finally {
+					logger.info("done reading mails");
+					
+				}
+				
+				return ans ;
+		
+	}
+
+	public List<String> readInboundEmails() {
+		
+		List<String> ans  = new ArrayList<>() ;
 		// create session object
 		Session session = this.getImapSession();
 
@@ -150,21 +210,23 @@ public class MailJiraAgent {
 				} catch (Exception ex) {
 
 					msg.setFlag(Flags.Flag.SEEN, false);
-					logger.error("Exception (" + ex.getClass().getSimpleName() + ") in reading one email : "
+					ans.add("Exception (" + ex.getClass().getSimpleName() + ") in reading one email : "
 							+ ex.getMessage());
 				}
 
 			}
 		} catch (AuthenticationFailedException e) {
-			logger.error("Exception (auth) in reading EMails : " + e.getMessage());
+			ans.add("Exception (auth) in reading EMails : " + e.getMessage());
 		} catch (MessagingException e) {
-			logger.error("Exception (messaging) in reading EMails : " + e.getMessage());
+			ans.add("Exception (messaging) in reading EMails : " + e.getMessage());
 		} catch (Exception e) {
-			logger.error("Exception (" + e.getClass().getSimpleName() + ") in reading EMails : " + e.getMessage());
+			ans.add("Exception (" + e.getClass().getSimpleName() + ") in reading EMails : " + e.getMessage());
 		} finally {
-			logger.info("done reading mails");
+			ans.add("done reading mails");
 			
 		}
+		
+		return ans ;
 	}
 
 	// cron : s m h dom m dow
@@ -172,7 +234,7 @@ public class MailJiraAgent {
 	public void scheduleFixedDelayTask() {
 		// System.out.println("Fixed delay task - " + System.currentTimeMillis() /
 		// 1000);
-		readInboundEmails();
+		//readInboundEmails();
 	}
 
 }
