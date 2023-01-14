@@ -25,5 +25,13 @@ public class MailManagementController {
 		return mailAgent.markNotRead() ;
 		
 	}
+	
+	@GetMapping(path="/read-mail")
+	public @ResponseBody List<String> readMail() {
+		
+		
+		return mailAgent.readInboundEmails() ;
+		
+	}
 
 }

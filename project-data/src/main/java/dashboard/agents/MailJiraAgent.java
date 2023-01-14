@@ -137,12 +137,14 @@ public class MailJiraAgent {
 
 						try {
 							
+							logger.debug(i+":"+subject+"|"+msg.getSentDate());
+							
 							msg.setFlag(Flags.Flag.SEEN, false);
 							
 							
 						} catch (Exception ex) {
 							
-							ans.add(ex.getClass().getSimpleName() +" --- "+ ex.getMessage() + " --- "+ subject ) ;
+							logger.error(ex.getClass().getSimpleName() +" --- "+ ex.getMessage() + " --- "+ subject ) ;
 							
 						}
 

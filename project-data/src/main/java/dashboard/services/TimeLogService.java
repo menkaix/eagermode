@@ -119,14 +119,29 @@ public class TimeLogService {
 				}
 				if (index > 0) {
 					String fullName = string.substring(0, index);
-					own = peopleService.findOrCreateWithFullName(fullName);
-
-					if (own.getLastName() == null || own.getLastName().isEmpty() || own.getLastName().isBlank()
-							|| stringContainsNumber(fullName)) {
-						logger.error("invalid name for Tempo owner");
-					} else {
-						tempo.setOwner(own);
+					
+					boolean contains = false ;
+					
+					for(char chr : fullName.toCharArray()) {
+						if(Character.isDigit(chr)) {
+							contains = true ;
+							logger.error("cannot extract owner : "+line);
+							break ;
+						}
 					}
+					
+					if(!contains) {
+						own = peopleService.findOrCreateWithFullName(fullName);
+
+						if (own.getLastName() == null || own.getLastName().isEmpty() || own.getLastName().isBlank()
+								|| stringContainsNumber(fullName)) {
+							logger.error("invalid name for Tempo owner");
+						} else {
+							tempo.setOwner(own);
+						}
+					}
+					
+					
 
 				} else {
 					logger.error("\"Temp\" found at " + index + " in :" + string);
