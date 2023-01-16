@@ -3,6 +3,7 @@ package dashboard.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dashboard.data.dto.ProjectMinimumDTO;
 import dashboard.data.dto.TaskDTO;
+import dashboard.data.entities.Note;
 import dashboard.data.entities.People;
 import dashboard.data.entities.Project;
 import dashboard.data.entities.ProjectGroup;
@@ -159,6 +161,20 @@ public class ManagementController {
 		} else {
 			return new ResponseEntity<TaskDTO>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@PostMapping(path="/add-note/{code}")
+	public ResponseEntity<Note> addNote(@PathVariable String code , @RequestBody Note newNote){
+		
+		
+		Note ans = projectService.addNote(code, newNote) ;
+
+		if (ans != null) {
+			return new ResponseEntity<Note>(ans, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Note>(HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 }

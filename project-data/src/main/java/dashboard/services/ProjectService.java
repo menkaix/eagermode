@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import dashboard.constraints.ProjectMinimalConverter;
 import dashboard.data.dto.ProjectMinimumDTO;
+import dashboard.data.entities.Note;
 import dashboard.data.entities.Project;
+import dashboard.data.repositories.NoteRepository;
 import dashboard.data.repositories.ProjectRepository;
 import dashboard.data.values.LifeCycle;
 
@@ -22,6 +24,9 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectMinimalConverter converter ;
+
+	@Autowired 
+	private NoteRepository noteRepository ;
 
 	public List<Project> allProjects() {
 		ArrayList<Project> ans = new ArrayList<Project>();
@@ -133,6 +138,24 @@ public class ProjectService {
 		}
 		
 		return ans ;
+	}
+
+	public Note addNote(String code, Note newNote) {
+		
+		List<Project> prjs = projectRepository.findByProjectCode(code) ;
+		if(prjs.size() == 1) {
+			
+			Project prj = prjs.get(0);
+			newNote.setProject(prj);
+			
+			return noteRepository.save(newNote);
+			
+		}
+		else {
+			System.err.println(prjs.size()+" project found with code "+code);
+		}
+		
+		return null;
 	}
 
 }
