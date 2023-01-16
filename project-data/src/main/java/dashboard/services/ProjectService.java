@@ -146,8 +146,9 @@ public class ProjectService {
 		if(prjs.size() == 1) {
 			
 			Project prj = prjs.get(0);
-			newNote.setProject(prj);
-			
+			prj.setLastActivity(new Date());
+			newNote.setProject(projectRepository.save(prj));
+			newNote.setCreationDate(new Date());
 			return noteRepository.save(newNote);
 			
 		}
