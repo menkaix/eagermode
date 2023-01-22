@@ -16,12 +16,16 @@ public class ActorService {
 	@Autowired
 	private ActorRepository actorRepository ;
 	
+//	@Autowired
+//	private ProjectRepository projectRepository ;
+	
 	@Autowired
-	private ProjectRepository projectRepository ;
+	private ProjectService projectService ;
+
 	
 	public Actor addActorToProject(Actor actor, Integer projectID) {
 		
-		Project project = projectRepository.findById(projectID).get();
+		Project project = projectService.findById(projectID);
 		
 		if(project == null) return null ;
 		
@@ -33,7 +37,7 @@ public class ActorService {
 	
 	public List<Actor> getActorsInProject(Integer projectID){
 		
-		Project project = projectRepository.findById(projectID).get();
+		Project project = projectService.findById(projectID);
 		
 		return actorRepository.findAllByProject(project) ;
 		

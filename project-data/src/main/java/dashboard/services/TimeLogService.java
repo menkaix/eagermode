@@ -26,6 +26,9 @@ public class TimeLogService {
 	@Autowired
 	private TimeLogRepository timeLogRepository;
 
+	@Autowired 
+	private ProjectService projectService ;
+
 	@Autowired
 	private TaskService taskService;
 
@@ -38,8 +41,8 @@ public class TimeLogService {
 	 * value for Billable: 0
 	 */
 	
-	@Autowired
-	ProjectRepository projectRepository ;
+//	@Autowired
+//	ProjectRepository projectRepository ;
 
 	private void setTempoTime(TimeLog tempo, String timePassed) {
 		String[] parts = timePassed.split(" ");
@@ -181,7 +184,7 @@ public class TimeLogService {
 		
 		List<TimeLog> ans = new ArrayList<>() ;
 		
-		Project p = projectRepository.findById(projectID).get() ; 
+		Project p = projectService.findById(projectID); 
 		
 		if(p!=null) {
 			

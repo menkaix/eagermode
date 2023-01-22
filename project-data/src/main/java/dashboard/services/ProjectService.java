@@ -38,6 +38,11 @@ public class ProjectService {
 		return ans;
 	}
 
+	public Project findById(Integer id) {
+		return projectRepository.findById(id).get() ;
+	}
+	
+	
 	public Project createFromRequest(ProjectMinimumDTO req) {
 
 		Project project = converter.convertFormDTO(req);

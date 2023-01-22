@@ -18,15 +18,19 @@ public class GroupService {
 	@Autowired
 	private ProjectGroupRepository groupRepo;
 	
+//	@Autowired
+//	private ProjectRepository projectRepo ;
+	
 	@Autowired
-	private ProjectRepository projectRepo ;
+	private ProjectService projectService ;
+
 	
 	@Autowired
 	private PeopleRepository peopleRepository ;
 	
 	public ProjectGroup createGroupInProject(Integer projectID, ProjectGroup group) {
 		
-		Project prj = projectRepo.findById(projectID).get() ;
+		Project prj = projectService.findById(projectID) ;
 		
 		if(prj != null) {
 			

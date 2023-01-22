@@ -19,19 +19,16 @@ import dashboard.data.repositories.TaskRepisitory;
 @Service
 public class TaskService {
 
-	Logger logger = LoggerFactory.getLogger(TaskService.class);
+	private Logger logger = LoggerFactory.getLogger(TaskService.class);
 
 	@Autowired
-	TaskRepisitory taskRepo;
+	private TaskRepisitory taskRepo;
 
 	@Autowired
-	TaskDTOConverter taskConverter;
+	private TaskDTOConverter taskConverter;
 
 	@Autowired
-	ProjectService projectService;
-
-//	@Autowired
-//	ProjectRepository projectRepo;
+	private ProjectService projectService;
 
 	public void saveTask(Task tsk) {
 

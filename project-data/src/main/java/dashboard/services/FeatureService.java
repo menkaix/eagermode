@@ -24,8 +24,12 @@ import dashboard.data.repositories.UserStoryRepository;
 @Service
 public class FeatureService {
 
+//	@Autowired
+//	private ProjectRepository projectRepo ;
+	
 	@Autowired
-	private ProjectRepository projectRepo ;
+	private ProjectService projectService ;
+
 	
 	@Autowired ActorRepository actorRepo;
 	
@@ -64,7 +68,7 @@ public class FeatureService {
 	public List<Feature> findByProject(Integer idProject){
 		List<Feature> ans = new ArrayList<>() ;
 		
-		Project prj = projectRepo.findById(idProject).get();
+		Project prj = projectService.findById(idProject);
 		
 		if(prj != null) {
 			

@@ -14,7 +14,7 @@ import dashboard.data.repositories.PeopleRepository;
 @Service
 public class PeopleService {
 	
-	Logger logger = LoggerFactory.getLogger(PeopleService.class);
+	private Logger logger = LoggerFactory.getLogger(PeopleService.class);
 
 	@Autowired
 	private PeopleRepository repo ;

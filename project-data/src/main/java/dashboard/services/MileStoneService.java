@@ -13,18 +13,21 @@ import dashboard.data.repositories.ProjectRepository;
 @Service
 public class MileStoneService {
 
+//	@Autowired
+//	ProjectRepository projectRepository;
+	
 	@Autowired
-	ProjectRepository projectRepository;
+	private ProjectService projectService ;
 
 	@Autowired
-	MileStoneRepository mileStoneRepository;
+	private MileStoneRepository mileStoneRepository;
 
 	@Autowired
-	MileStoneDTOConverter mileStoneDTOConverter;
+	private MileStoneDTOConverter mileStoneDTOConverter;
 
 	public MileStoneDTO createForProject(Integer projectID, MileStoneDTO dto) {
 
-		Project prj = projectRepository.findById(projectID).get();
+		Project prj = projectService.findById(projectID);
 
 		if (prj != null) {
 			MileStone milestone = mileStoneDTOConverter.convertFormDTO(dto);
