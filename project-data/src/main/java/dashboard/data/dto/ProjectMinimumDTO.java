@@ -1,5 +1,6 @@
 package dashboard.data.dto;
 
+@Deprecated
 public class ProjectMinimumDTO {
 	
 	private Integer id ;

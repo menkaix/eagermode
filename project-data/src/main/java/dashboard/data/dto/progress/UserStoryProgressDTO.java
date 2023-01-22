@@ -3,19 +3,18 @@ package dashboard.data.dto.progress;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActorProgressDTO {
-	
-private Integer id;
-	
-	private String actorName ;
-	private String actorDescription ;
+public class UserStoryProgressDTO {
+
+	private Integer id;
+	private String action;
+	private String scenario;
+	private String objectif;
 	
 	private Float facturableJHConsomme ;	
 	private Float totalJHConsumme ;	
 	private Float pourcentTickets ;
 	
-	private List<UserStoryProgressDTO> stories = new ArrayList<>() ;
-	
+	private List<FeatureProgressDTO> features = new ArrayList<>() ;
 	
 	public Integer getId() {
 		return id;
@@ -23,23 +22,23 @@ private Integer id;
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getActorName() {
-		return actorName;
+	public String getAction() {
+		return action;
 	}
-	public void setActorName(String actorName) {
-		this.actorName = actorName;
+	public void setAction(String action) {
+		this.action = action;
 	}
-	public String getActorDescription() {
-		return actorDescription;
+	public String getScenario() {
+		return scenario;
 	}
-	public void setActorDescription(String actorDescription) {
-		this.actorDescription = actorDescription;
+	public void setScenario(String scenario) {
+		this.scenario = scenario;
 	}
-	public List<UserStoryProgressDTO> getStories() {
-		return stories;
+	public String getObjectif() {
+		return objectif;
 	}
-	public void setStories(List<UserStoryProgressDTO> stories) {
-		this.stories = stories;
+	public void setObjectif(String objectif) {
+		this.objectif = objectif;
 	}
 	public Float getFacturableJHConsomme() {
 		return facturableJHConsomme;
@@ -58,6 +57,12 @@ private Integer id;
 	}
 	public void setPourcentTickets(Float pourcentTickets) {
 		this.pourcentTickets = pourcentTickets;
+	}
+	public List<FeatureProgressDTO> getFeatures() {
+		return features;
+	}
+	public void setFeatures(List<FeatureProgressDTO> features) {
+		this.features = features;
 	}
 
 }
