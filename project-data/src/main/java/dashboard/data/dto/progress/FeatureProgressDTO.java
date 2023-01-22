@@ -1,5 +1,9 @@
 package dashboard.data.dto.progress;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.FeatureType;
 
 public class FeatureProgressDTO {
@@ -15,6 +19,7 @@ public class FeatureProgressDTO {
 	private Float totalJHConsumme ;	
 	private Float pourcentTickets ;
 	
+	private List<TaskProgressDTO> tasks = new ArrayList<>() ;
 	
 	public Float getFacturableJHConsomme() {
 		return facturableJHConsomme;
