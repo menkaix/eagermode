@@ -19,13 +19,20 @@ public class Project {
 	
 	private String projectName ;
 	
-	private boolean ignoreAudit ;
-	
 	private String projectCode ;
-	
+
 	private String description ;
 
 	private Date dateCreated ;
+	
+	private Date deadLine ;
+	
+	private String refBL ;
+	
+	private Float budjetJH ;
+	
+	private Float tjm ;
+	
 	private Date lastActivity ;
 
 	@ManyToOne
@@ -45,6 +52,10 @@ public class Project {
 	
 	
 	
+	private boolean ignoreAudit ;
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -123,6 +134,38 @@ public class Project {
 
 	public void setIgnoreAudit(boolean ignoreAudit) {
 		this.ignoreAudit = ignoreAudit;
+	}
+
+	public Date getDeadLine() {
+		return deadLine;
+	}
+
+	public void setDeadLine(Date deadLine) {
+		this.deadLine = deadLine;
+	}
+
+	public String getRefBL() {
+		return refBL;
+	}
+
+	public void setRefBL(String refBL) {
+		this.refBL = refBL;
+	}
+
+	public Float getTjm() {
+		return tjm;
+	}
+
+	public void setTjm(Float tjm) {
+		this.tjm = tjm;
+	}
+
+	public Float getBudjetJH() {
+		return budjetJH;
+	}
+
+	public void setBudjetJH(Float budjetJH) {
+		this.budjetJH = budjetJH;
 	}
 
 	
