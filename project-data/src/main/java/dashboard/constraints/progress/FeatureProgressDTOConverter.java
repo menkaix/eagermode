@@ -1,9 +1,12 @@
 package dashboard.constraints.progress;
 
+import org.springframework.stereotype.Component;
+
 import dashboard.data.dto.progress.FeatureProgressDTO;
 import dashboard.data.entities.Feature;
 import platform.constraints.AbstractConverter;
 
+@Component
 public class FeatureProgressDTOConverter  extends AbstractConverter<Feature, FeatureProgressDTO> {
 
 	@Override
