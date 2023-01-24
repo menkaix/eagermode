@@ -10,7 +10,7 @@ public class FeatureProgressDTO {
 	
 	private Integer id;	
 	private String featureName ;	
-	private FeatureType featureType ;	
+	private String type ;	
 	private String featureDescription ;
 	private Float estimation ;
 	
@@ -51,12 +51,7 @@ public class FeatureProgressDTO {
 	public void setFeatureName(String featureName) {
 		this.featureName = featureName;
 	}
-	public FeatureType getFeatureType() {
-		return featureType;
-	}
-	public void setFeatureType(FeatureType featureType) {
-		this.featureType = featureType;
-	}
+	
 	public String getFeatureDescription() {
 		return featureDescription;
 	}
@@ -74,6 +69,12 @@ public class FeatureProgressDTO {
 	}
 	public void setTaskDTOs(List<TaskProgressDTO> taskDTOs) {
 		this.taskDTOs = taskDTOs;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 

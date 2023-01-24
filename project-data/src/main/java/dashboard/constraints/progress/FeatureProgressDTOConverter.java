@@ -16,6 +16,8 @@ public class FeatureProgressDTOConverter  extends AbstractConverter<Feature, Fea
 		
 		fieldsFromEntity(entity, ans);
 		
+		ans.setType(entity.getFeatureType().getTypeName());
+		
 		return ans;
 	}
 
