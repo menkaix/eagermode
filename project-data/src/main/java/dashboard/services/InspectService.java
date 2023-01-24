@@ -279,9 +279,10 @@ public class InspectService {
 
 		if (task.getIsBillable() != null && task.getIsBillable()) {
 			taskDTO.setFacturableJHConsomme(logService.getSecondsConsumed(task) / (3600 * 8));
-		} else {
-			taskDTO.setFacturableJHConsomme(0f);
-		}
+		} 
+		
+		taskDTO.setFacturableJHConsomme(0f);
+		
 
 		return taskDTO;
 
