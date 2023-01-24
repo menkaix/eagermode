@@ -9,6 +9,7 @@ import dashboard.constraints.progress.ActorProgressDTOConverter;
 import dashboard.constraints.progress.FeatureProgressDTOConverter;
 import dashboard.constraints.progress.ProjectProgressDTOConverter;
 import dashboard.constraints.progress.StoryProgressDTOConverter;
+import dashboard.constraints.progress.TaskProgressDTOConverter;
 import dashboard.data.dto.progress.ActorProgressDTO;
 import dashboard.data.dto.progress.FeatureProgressDTO;
 import dashboard.data.dto.progress.ProjectProgressDTO;
@@ -32,6 +33,9 @@ public class InspectService {
 
 	@Autowired
 	private UserStoryService storyService;
+	
+	@Autowired
+	TaskService taskService ;
 
 	@Autowired
 	private ProjectProgressDTOConverter dtoConverter;
@@ -44,6 +48,9 @@ public class InspectService {
 
 	@Autowired
 	private StoryProgressDTOConverter storyProgressDTOConverter;
+	
+	@Autowired
+	private TaskProgressDTOConverter taskDtoConverter ;
 
 	public ProjectProgressDTO inspectProject(Integer projectID) {
 
@@ -72,7 +79,7 @@ public class InspectService {
 
 						FeatureProgressDTO featureDTO = featureDTOConverter.convertToDTO(feature);
 						
-						
+						 
 						
 						//TODO feature progress here
 						
