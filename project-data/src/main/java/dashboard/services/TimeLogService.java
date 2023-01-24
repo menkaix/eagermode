@@ -83,6 +83,21 @@ public class TimeLogService {
 		return timeLogRepository.findByTask(task) ;
 	}
 	
+	public float getSecondsConsumed(Task task) {
+		
+		float ans = 0 ;
+		
+		for(TimeLog timelog : findAllByTask(task)) {
+			
+			ans += timelog.getSeconds() ;
+			
+		}
+		
+		
+		return ans ;
+		
+	}
+	
 
 	/*
 	 * Entrée du journal de travail: 1 heure, 30 minutes enregistré par Iony Mahefa

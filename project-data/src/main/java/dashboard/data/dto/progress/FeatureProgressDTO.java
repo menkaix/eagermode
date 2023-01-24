@@ -19,7 +19,7 @@ public class FeatureProgressDTO {
 	private Float totalJHConsumme ;	
 	private Float pourcentTickets ;
 	
-	private List<TaskProgressDTO> tasks = new ArrayList<>() ;
+	private List<TaskProgressDTO> taskDTOs = new ArrayList<TaskProgressDTO>() ;
 	
 	public Float getFacturableJHConsomme() {
 		return facturableJHConsomme;
@@ -69,5 +69,12 @@ public class FeatureProgressDTO {
 	public void setEstimation(Float estimation) {
 		this.estimation = estimation;
 	}
+	public List<TaskProgressDTO> getTaskDTOs() {
+		return taskDTOs;
+	}
+	public void setTaskDTOs(List<TaskProgressDTO> taskDTOs) {
+		this.taskDTOs = taskDTOs;
+	}
+	
 
 }
