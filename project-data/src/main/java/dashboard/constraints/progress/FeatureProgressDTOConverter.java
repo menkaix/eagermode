@@ -4,7 +4,7 @@ import dashboard.data.dto.progress.FeatureProgressDTO;
 import dashboard.data.entities.Feature;
 import platform.constraints.AbstractConverter;
 
-public class FeatureProgressDTOConverter extends AbstractConverter<Feature, FeatureProgressDTO>{
+public class FeatureProgressDTOConverter  extends AbstractConverter<Feature, FeatureProgressDTO> {
 
 	@Override
 	public FeatureProgressDTO convertToDTO(Feature entity) {
@@ -21,7 +21,5 @@ public class FeatureProgressDTOConverter extends AbstractConverter<Feature, Feat
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 }
