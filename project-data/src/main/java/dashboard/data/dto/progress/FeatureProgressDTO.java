@@ -19,6 +19,9 @@ public class FeatureProgressDTO {
 	private Float totalJHConsumme ;	
 	private Float pourcentTickets ;
 	
+	private Integer doneTaskNumber = 0 ;
+	private Integer taskNumber = 0 ;
+	
 	private List<TaskProgressDTO> taskDTOs = new ArrayList<TaskProgressDTO>() ;
 	
 	public Float getFacturableJHConsomme() {
@@ -75,6 +78,18 @@ public class FeatureProgressDTO {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public Integer getDoneTaskNumber() {
+		return doneTaskNumber;
+	}
+	public void setDoneTaskNumber(Integer doneTaskNumber) {
+		this.doneTaskNumber = doneTaskNumber;
+	}
+	public Integer getTaskNumber() {
+		return taskNumber;
+	}
+	public void setTaskNumber(Integer taskNumber) {
+		this.taskNumber = taskNumber;
 	}
 	
 

@@ -33,6 +33,11 @@ private Integer id;
 	
 	private Float pourcentTickets ;
 	
+	private Integer doneTaskNumber = 0;
+	private Integer taskNumber = 0;
+	
+	private FeatureProgressDTO orhanTasks ;
+	
 	private List<ActorProgressDTO>  actors = new ArrayList<ActorProgressDTO>() ; 
 	
 	public Integer getId() {
@@ -145,6 +150,30 @@ private Integer id;
 
 	public void setPourcentTickets(Float pourcentTickets) {
 		this.pourcentTickets = pourcentTickets;
+	}
+
+	public Integer getDoneTaskNumber() {
+		return doneTaskNumber;
+	}
+
+	public void setDoneTaskNumber(Integer doneTaskNumber) {
+		this.doneTaskNumber = doneTaskNumber;
+	}
+
+	public Integer getTaskNumber() {
+		return taskNumber;
+	}
+
+	public void setTaskNumber(Integer taskNumber) {
+		this.taskNumber = taskNumber;
+	}
+
+	public FeatureProgressDTO getOrhanTasks() {
+		return orhanTasks;
+	}
+
+	public void setOrhanTasks(FeatureProgressDTO orhanTasks) {
+		this.orhanTasks = orhanTasks;
 	}
 
 	

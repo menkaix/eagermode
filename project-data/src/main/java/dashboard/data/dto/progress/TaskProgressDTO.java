@@ -5,6 +5,8 @@ public class TaskProgressDTO {
 	private Integer id;
 	private String code ;
 	
+	private String title;
+	
 	private Float facturableJHConsomme ;	
 	private Float totalJHConsumme ;	
 	private Float pourcentTickets ;
@@ -38,6 +40,12 @@ public class TaskProgressDTO {
 	}
 	public void setPourcentTickets(Float pourcentTickets) {
 		this.pourcentTickets = pourcentTickets;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }
