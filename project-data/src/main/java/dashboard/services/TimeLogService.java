@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.WeakHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,6 +97,34 @@ public class TimeLogService {
 		
 		return ans ;
 		
+	}
+	
+	public List<String> getJHConsumedPeople(Task task){
+		
+		ArrayList<String> ans = new ArrayList<>() ;
+		
+		WeakHashMap<String, Float> distrib = new WeakHashMap<>() ;
+		
+		for(TimeLog timelog : findAllByTask(task)) {
+			
+			String ownerName = timelog.getOwner().getFirstName() ;
+			
+			if(distrib.containsKey(ownerName)) {
+				Float t = distrib.get(ownerName) + timelog.getSeconds();
+				distrib.put(ownerName, t) ;
+			}
+			else {
+				distrib.put(ownerName, timelog.getSeconds()) ;
+			}
+			
+		}
+		
+		for(String s : distrib.keySet()) {
+			ans.add(s+ ": "+(distrib.get(s)/(3600*8))) ;
+		}
+		
+		
+		return ans ;
 	}
 	
 

@@ -282,6 +282,8 @@ public class InspectService {
 		} else {
 			taskDTO.setFacturableJHConsomme(0f);
 		}
+		
+		taskDTO.setPeople(logService.getJHConsumedPeople(task));
 
 		return taskDTO;
 

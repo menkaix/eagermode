@@ -1,5 +1,8 @@
 package dashboard.data.dto.progress;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskProgressDTO {
 	
 	private Integer id;
@@ -10,6 +13,8 @@ public class TaskProgressDTO {
 	private Float facturableJHConsomme ;	
 	private Float totalJHConsumme ;	
 	private Float pourcentTickets ;
+	
+	private List<String> people = new ArrayList<>() ;
 	
 	public Integer getId() {
 		return id;
@@ -46,6 +51,12 @@ public class TaskProgressDTO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public List<String> getPeople() {
+		return people;
+	}
+	public void setPeople(List<String> people) {
+		this.people = people;
 	}
 
 }
