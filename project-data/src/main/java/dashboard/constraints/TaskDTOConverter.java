@@ -27,6 +27,7 @@ public class TaskDTOConverter extends AbstractConverter<Task, TaskDTO>{
 		ans.setDescription(entity.getDescription());		
 		ans.setCloseComment(entity.getCloseComment());
 		ans.setIsHot(entity.getIsHot());
+		ans.setIsBillable(entity.getIsBillable());
 		
 		ans.setCode(entity.getCode());
 		
@@ -51,6 +52,7 @@ public class TaskDTOConverter extends AbstractConverter<Task, TaskDTO>{
 		t.setCloseComment(dto.getCloseComment());
 		t.setIsHot(dto.getIsHot());
 		t.setCode(dto.getCode());
+		t.setIsBillable(dto.getIsBillable());
 		
 		if(dto.getProjectID()!=null) {
 			Project prj = projectRepo.findById(dto.getProjectID()).get() ;

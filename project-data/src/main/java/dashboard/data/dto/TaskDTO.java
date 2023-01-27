@@ -13,6 +13,7 @@ public class TaskDTO {
 	private String code ;
 
 	private Boolean isHot;
+	private Boolean isBillable ;
 
 	private String creationDate;
 	private String dueDate;
@@ -84,6 +85,12 @@ public class TaskDTO {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public Boolean getIsBillable() {
+		return isBillable;
+	}
+	public void setIsBillable(Boolean isBillable) {
+		this.isBillable = isBillable;
 	}
 
 }

@@ -100,7 +100,7 @@ public class InspectService {
 
 				boolean found = false;
 
-				System.out.println("lucky tasks " + luckyTasks.size());
+				//System.out.println("lucky tasks " + luckyTasks.size());
 
 				for (Task luckyTask : luckyTasks) {
 
@@ -150,8 +150,10 @@ public class InspectService {
 			ans.setFacturableJHConsomme(billableJH + billableOrphanJH);
 			ans.setTotalJHConsumme(totalJH + totalOrphanJH);
 
-			ans.setPourcentTickets(
-					(float) (storyDoneTask + orphanDoneTask) / (float) (storyTotalTask + orphanTotalTask) * 100f);
+			if ((storyTotalTask + orphanTotalTask) != 0) {
+				ans.setPourcentTickets(
+						(float) (storyDoneTask + orphanDoneTask) / (float) (storyTotalTask + orphanTotalTask) * 100f);
+			}
 
 		}
 
@@ -168,8 +170,8 @@ public class InspectService {
 
 		List<UserStory> stories = storyService.getActorStories(actor.getId());
 
-		int storyDoneTask = 0;
-		int storyTotalTask = 0;
+		int actorDoneTask = 0;
+		int actorTotalTask = 0;
 		float totalJH = 0;
 		float billableJH = 0;
 
@@ -177,8 +179,8 @@ public class InspectService {
 
 			UserStoryProgressDTO storyDTO = inspectStory(story, toRemove);
 
-			storyDoneTask += storyDTO.getDoneTaskNumber();
-			storyTotalTask += storyDTO.getTaskNumber();
+			actorDoneTask += storyDTO.getDoneTaskNumber();
+			actorTotalTask += storyDTO.getTaskNumber();
 			totalJH += storyDTO.getTotalJHConsumme();
 			billableJH += storyDTO.getFacturableJHConsomme();
 
@@ -186,11 +188,15 @@ public class InspectService {
 
 		}
 
-		actorDTO.setDoneTaskNumber(storyDoneTask);
-		actorDTO.setTaskNumber(storyTotalTask);
+		actorDTO.setDoneTaskNumber(actorDoneTask);
+		actorDTO.setTaskNumber(actorTotalTask);
 		actorDTO.setFacturableJHConsomme(billableJH);
 		actorDTO.setTotalJHConsumme(totalJH);
 
+		if (actorTotalTask != 0) {
+			actorDTO.setPourcentTickets((float) actorDoneTask / (float) actorTotalTask * 100f);
+		}
+		
 		return actorDTO;
 	}
 
@@ -213,12 +219,15 @@ public class InspectService {
 
 			storyDoneTask += featureDTO.getDoneTaskNumber();
 			storyTotalTask += featureDTO.getTaskNumber();
-			totalJH += featureDTO.getTotalJHConsumme() != null ? featureDTO.getTotalJHConsumme() : 0;
-			billableJH += featureDTO.getFacturableJHConsomme() != null ? featureDTO.getFacturableJHConsomme() : 0;
-			;
+			totalJH += featureDTO.getTotalJHConsumme();
+			billableJH += featureDTO.getFacturableJHConsomme();
+
 		}
 
-		storyDTO.setPourcentTickets(null);
+		if (storyTotalTask != 0) {
+			storyDTO.setPourcentTickets((float) storyDoneTask / (float) storyTotalTask * 100f);
+		}
+
 		storyDTO.setDoneTaskNumber(storyDoneTask);
 		storyDTO.setTaskNumber(storyTotalTask);
 		storyDTO.setFacturableJHConsomme(billableJH);
@@ -231,11 +240,11 @@ public class InspectService {
 
 		FeatureProgressDTO featureDTO = featureDTOConverter.convertToDTO(feature);
 
-		if (feature.getTasks().size() > 0) {
+		int doneTask = 0;
+		float jhTotal = 0;
+		float jhBilled = 0;
 
-			int doneTask = 0;
-			float jhTotal = 0;
-			float jhBilled = 0;
+		if (feature.getTasks().size() > 0) {
 
 			for (Task task : feature.getTasks()) {
 
@@ -257,11 +266,13 @@ public class InspectService {
 			}
 
 			featureDTO.setPourcentTickets((float) doneTask / (float) feature.getTasks().size() * 100f);
-			featureDTO.setFacturableJHConsomme(jhBilled);
-			featureDTO.setTotalJHConsumme(jhTotal);
-			featureDTO.setDoneTaskNumber(doneTask);
-			featureDTO.setTaskNumber(feature.getTasks().size());
+
 		}
+
+		featureDTO.setFacturableJHConsomme(jhBilled);
+		featureDTO.setTotalJHConsumme(jhTotal);
+		featureDTO.setDoneTaskNumber(doneTask);
+		featureDTO.setTaskNumber(feature.getTasks().size());
 
 		return featureDTO;
 	}
@@ -278,12 +289,17 @@ public class InspectService {
 		taskDTO.setTotalJHConsumme(logService.getSecondsConsumed(task) / (3600 * 8));
 
 		if (task.getIsBillable() != null && task.getIsBillable()) {
+			System.out.println("task is billable "+logService.getSecondsConsumed(task) / (3600 * 8));
+			
 			taskDTO.setFacturableJHConsomme(logService.getSecondsConsumed(task) / (3600 * 8));
-		} else {
+		}
+		else {
 			taskDTO.setFacturableJHConsomme(0f);
 		}
 		
+
 		taskDTO.setPeople(logService.getJHConsumedPeople(task));
+
 
 		return taskDTO;
 
