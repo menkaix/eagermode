@@ -50,7 +50,11 @@ public class Project {
 	@ManyToOne
 	private People porter ;
 	
+	@ManyToOne
+	private People lead ;
 	
+	@ManyToOne
+	private People commercial ;
 	
 	private boolean ignoreAudit ;
 
