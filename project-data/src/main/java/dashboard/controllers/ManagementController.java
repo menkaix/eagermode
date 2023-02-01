@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dashboard.data.dto.FeatureDTO;
 import dashboard.data.dto.ProjectMinimumDTO;
 import dashboard.data.dto.TaskDTO;
 import dashboard.data.entities.Note;
@@ -90,6 +91,21 @@ public class ManagementController {
 		}
 
 	}
+	
+	@PostMapping(path = "/add-feature-in-project/{projectID}")
+	public ResponseEntity<FeatureDTO> addFeaturekInProject(@PathVariable(name = "projectID") Integer projectID,
+			@RequestBody FeatureDTO taskDTO) {
+
+		FeatureDTO ans = featureService.addFeatureToProject(projectID, taskDTO);
+
+		if (ans != null) {
+			return new ResponseEntity<FeatureDTO>(ans, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<FeatureDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
 
 	@PostMapping(path = "/add-task-in-feature/{featureID}")
 	public ResponseEntity<TaskDTO> addTaskInFeature(@PathVariable(name = "featureID") Integer featureID,

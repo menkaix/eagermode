@@ -29,6 +29,8 @@ public class Feature {
 	@ManyToOne
 	private UserStory story ;
 	
+	@ManyToOne
+	private Project project ;
 	
 	private Float estimation ;
 	
@@ -99,6 +101,14 @@ public class Feature {
 
 	public void setStory(UserStory story) {
 		this.story = story;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	

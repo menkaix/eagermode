@@ -107,14 +107,13 @@ public class FeatureService {
 		return featureRepo.save(child);
 	}
 
+	@Deprecated
 	@Autowired
 	TaskRepisitory taskRepisitory ;
 	
 	@Autowired
 	TaskDTOConverter taskConverter ;
 	
-	@Autowired
-	FeatureDTOConverter featureConverter ;
 	
 	
 	public TaskDTO addTaskToFeature(Integer featureID, TaskDTO taskDTO) {
@@ -145,6 +144,24 @@ public class FeatureService {
 			
 		}
 		
+		
+		return null;
+	}
+
+	public FeatureDTO addFeatureToProject(Integer projectID, FeatureDTO featureDTO) {
+		
+		Project prj = projectService.findById(projectID);
+		
+		if(prj != null) {
+			
+			Feature feat = featureDTOConverter.convertFormDTO(featureDTO) ;
+			
+			feat.setProject(prj);
+			
+			featureRepo.save(feat);
+			
+			return featureDTOConverter.convertToDTO(feat);
+		}
 		
 		return null;
 	}
