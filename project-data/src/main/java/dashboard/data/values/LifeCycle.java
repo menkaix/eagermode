@@ -2,10 +2,10 @@ package dashboard.data.values;
 
 public enum LifeCycle {
 	
-	ACTIF,
+	ACTIF,//0
 	PREPARATION,
-	STAND_BY,
+	STAND_BY,//2
 	CLOSED,
-	BACK_GROUND
+	BACK_GROUND//4
 
 }
