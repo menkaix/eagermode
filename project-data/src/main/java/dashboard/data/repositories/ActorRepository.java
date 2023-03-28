@@ -10,5 +10,6 @@ import dashboard.data.entities.Project;
 public interface ActorRepository extends PagingAndSortingRepository<Actor, Integer> {
 	
 	List<Actor> findAllByProject(Project p) ;
+	
 
 }
